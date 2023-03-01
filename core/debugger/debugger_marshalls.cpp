@@ -31,6 +31,8 @@
 #include "debugger_marshalls.h"
 
 #include "core/io/marshalls.h"
+#include "editor/editor_settings.h"
+
 
 #define CHECK_SIZE(arr, expected, what) ERR_FAIL_COND_V_MSG((uint32_t)arr.size() < (uint32_t)(expected), false, String("Malformed ") + what + " message from script debugger, message too short. Expected size: " + itos(expected) + ", actual size: " + itos(arr.size()))
 #define CHECK_END(arr, expected, what) ERR_FAIL_COND_V_MSG((uint32_t)arr.size() > (uint32_t)expected, false, String("Malformed ") + what + " message from script debugger, message too long. Expected size: " + itos(expected) + ", actual size: " + itos(arr.size()))
@@ -63,7 +65,8 @@ bool DebuggerMarshalls::ScriptStackDump::deserialize(const Array &p_arr) {
 	return true;
 }
 
-Array DebuggerMarshalls::ScriptStackVariable::serialize(int max_size) {
+Array DebuggerMarshalls::ScriptStackVariable::serialize() {
+	int max_size = ((int)EDITOR_GET("debugger/max_stack_variable_size")) << 10;
 	Array arr;
 	arr.push_back(name);
 	arr.push_back(type);

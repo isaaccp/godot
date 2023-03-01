@@ -738,6 +738,9 @@ void EditorSettings::_load_defaults(Ref<ConfigFile> p_extra_config) {
 	// Profiler
 	EDITOR_SETTING(Variant::INT, PROPERTY_HINT_RANGE, "debugger/profiler_frame_history_size", 3600, "60,10000,1")
 
+	// Remote Debugger
+	EDITOR_SETTING(Variant::INT, PROPERTY_HINT_RANGE, "debugger/max_stack_variable_size", 1, "1,24,1")
+
 	// HTTP Proxy
 	_initial_set("network/http_proxy/host", "");
 	EDITOR_SETTING(Variant::INT, PROPERTY_HINT_RANGE, "network/http_proxy/port", 8080, "1,65535,1")
